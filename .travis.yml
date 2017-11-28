@@ -1,0 +1,45 @@
+language: java
+dist:     trusty
+sudo:     false
+
+jdk:
+  - oraclejdk8
+  - oraclejdk9
+  - openjdk8
+  - openjdk9
+
+matrix:
+  allow_failures:
+    - jdk: oraclejdk9
+    - jdk: opendjdk9
+
+cache:
+  directories:
+    - ${HOME}/.m2/repository/
+
+# Pre-download all the needed build dependencies
+before_install: mvn dependency:go-offline \
+  --update-snapshots \
+  --show-version \
+  --batch-mode \
+  --errors
+
+# Compile and package the code
+install: mvn install \
+  -DskipTests=true \
+  -Dmaven.javadoc.skip=true \
+  --show-version \
+  --batch-mode \
+  --errors
+
+# Run all the unit tests
+script: mvn test \
+  --batch-mode \
+  --errors
+
+# Deploy raw jar to github
+deploy:
+  provider: releases
+  on:
+    tags: true
+
