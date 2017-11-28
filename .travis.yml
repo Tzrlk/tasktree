@@ -9,6 +9,8 @@ jdk:
   - openjdk9
 
 matrix:
+
+  # We don't care if jdk9 builds fail just yet.
   allow_failures:
     - jdk: oraclejdk9
     - jdk: opendjdk9
@@ -40,6 +42,7 @@ script: mvn test \
 # Deploy raw jar to github
 deploy:
   provider: releases
-  on:
-    tags: true
+  file:     target/tasktree.jar
+  on:       { tags: true }
+  api_key:  { secure: TsTyOs+06fCpGtQP7YTFhQSA65KtdSrzCL09JDMA9tZb89lhhskpV+OP0RiJIAc5Dy5JCqqVtfwNUp5umEpF/x5pJyOT7vcTMUTlnn7bp4UPqHoETLfHDuW0QnOyBFHcmUlgiNcnuovnjk0+eTTBa6C1UeC5MzUYZ6/lMRsYONy3crta3FSmpZx/jHvehFPUioc8ySwgz99Z+tJ2vPsphpxqyhCumxYNWp4DOQuCSNK841WBNhLVoQtfppJk2QXPV8cxWp6p/2ZK6+LytLVBPzqY2mVj3kFK+7n3/AHwqya9AFL0GkA031NZZJtoS4Wz9NaGO20xOT2LLsSr2daOuKdkzm4BuVATguh43ThyJRFAWfTf7njiY2JhWRfiIFHxX0+yobl5+Wfo7xkFrCE8f+0Fkp7Ryp36F/Yr5/JEWaR0uOZTeMPv6cUUtpQ4pSMiqz1yBA10Cdp3UwuDWnnufIuS6VUKd6QP+UKN/8ZN5f2l4xarU0oW9fCJb9BQzCmG+XOO3rahS0gWnNuDmCOH8Xsn4RjQ6IQ+9oQdg5nTHTttIKmMN0lrlT6i+ERdwrJovEFdLQa+ecz34HfCznaRSg0Vg2JPocS47dAa/OB7VYJNEdya4AhcVHdK46ByN/1FZCDU6oG6huQCphxS8kO1r2lqH12j6xJONDJzfLZEKbA= }
 
